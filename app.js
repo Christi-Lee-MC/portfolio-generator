@@ -26,16 +26,29 @@ const promptUser = () => {
       message: 'Enter your GitHub Username'
     },
     {
+      type: 'confirm',
+      name: 'confirmAbout',
+      message: 'Would you like to enter some information about yourself for an "About" section?',
+      default: true
+    },
+    {
       type: 'input',
       name: 'about',
-      message: 'Provide some information about yourself:'
+      message: 'Provide some information about yourself:',
+      when: ({ confirmAbout }) => {
+        if (confirmAbout) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
   ]);
 };
 
 const promptProject = portfolioData => {
-  console.log(`
-  // If there's no 'projects' array property, create one
+  console.log(
+// If there's no 'projects' array property, create one
 if (!portfolioData.projects) {
   portfolioData.projects = [];
 },
@@ -48,10 +61,10 @@ if (!portfolioData.projects) {
   }
 });
 
-=================
-Add a New Project
-=================
-`);
+// =================
+// Add a New Project
+// =================
+);
   return inquirer.prompt([
     {
       type: 'input',
